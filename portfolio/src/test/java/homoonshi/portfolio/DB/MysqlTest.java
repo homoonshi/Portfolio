@@ -14,20 +14,22 @@ public class MysqlTest {
 
     @Value("${spring.datasource.url}")
     String url;
+    @Value("${spring.datasource.username}")
+    String username;
+    @Value("${spring.datasource.password}")
+    String password;
 
     @Test
     public void testConnection() {
 
-        System.out.println("url = " + url);
-
         try(Connection con =
                     DriverManager.getConnection(
-                            url
+                            url,
+                            username,
+                            password
                     )){
-            System.out.println("con = " + con);
         }catch (Exception e){
-//            fail(e.getMessage());
-            System.out.println("걍 연결 안됨");
+            fail(e.getMessage());
         }
 
     }
