@@ -1,5 +1,6 @@
 package homoonshi.portfolio.config;
 
+import homoonshi.portfolio.filter.JWTFilter;
 import homoonshi.portfolio.filter.LoginFilter;
 import homoonshi.portfolio.util.JWTUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -98,8 +99,14 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // 로그인 필터
         http
                 .addFilterBefore(new LoginFilter(authenticationManager, jwtUtil, url),
+                        UsernamePasswordAuthenticationFilter.class);
+
+        // JWT 필터
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
