@@ -1,12 +1,12 @@
-package homoonshi.portfolio.filter;
+package homoonshi.portfolio.JWT.filter;
 
-import homoonshi.portfolio.entity.CustomUserDetails;
-import homoonshi.portfolio.util.JWTUtil;
+import homoonshi.portfolio.JWT.entity.CustomUserDetails;
+import homoonshi.portfolio.JWT.util.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,8 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
+import java.util.UUID;
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -51,14 +51,19 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
         String username = customUserDetails.getUsername();
 
-        System.out.println("username = " + username);
+        //accessToken
+        String accessToken = jwtUtil.createJwt(username, 60*10L);
+        response.addHeader("Authorization", "Bearer "+accessToken);
 
-        Collection<? extends GrantedAuthority> authorities
-                = authResult.getAuthorities();
-        Iterator<? extends GrantedAuthority> iterator
-                = authorities.iterator();
-        String token = jwtUtil.createJwt(username, 60*60*10L);
-        response.addHeader("Authorization", "Bearer "+token);
+        //refreshToken
+        String refreshToken = UUID.randomUUID().toString();
+        jwtUtil.createRefreshToken(refreshToken, username,60*60*7*24L);
+        Cookie refreshCookie = new Cookie("refreshToken", refreshToken);
+        refreshCookie.setHttpOnly(true);
+        refreshCookie.setSecure(true);
+        refreshCookie.setPath("/");
+        refreshCookie.setMaxAge(60*60*24*7);
+        response.addCookie(refreshCookie);
     }
 
     @Override

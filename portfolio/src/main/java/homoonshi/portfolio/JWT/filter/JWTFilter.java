@@ -1,8 +1,8 @@
-package homoonshi.portfolio.filter;
+package homoonshi.portfolio.JWT.filter;
 
-import homoonshi.portfolio.entity.CustomUserDetails;
-import homoonshi.portfolio.entity.UserEntity;
-import homoonshi.portfolio.util.JWTUtil;
+import homoonshi.portfolio.JWT.entity.UserEntity;
+import homoonshi.portfolio.JWT.entity.CustomUserDetails;
+import homoonshi.portfolio.JWT.util.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -39,13 +37,14 @@ public class JWTFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         if(jwtUtil.isExpired(token)){
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("AccessToken expired");
             return;
         }
 
         String username = jwtUtil.getUsername(token);
 
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity = new homoonshi.portfolio.JWT.entity.UserEntity();
         userEntity.setUsername(username);
         userEntity.setPassword("temppassword");
 

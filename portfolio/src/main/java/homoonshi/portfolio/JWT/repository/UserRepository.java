@@ -1,7 +1,7 @@
-package homoonshi.portfolio.repository;
+package homoonshi.portfolio.JWT.repository;
 
 
-import homoonshi.portfolio.entity.UserEntity;
+import homoonshi.portfolio.JWT.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
