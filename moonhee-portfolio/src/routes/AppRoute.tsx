@@ -1,24 +1,26 @@
 import React from "react";
-import { Route,
+import {
     createBrowserRouter,
-    createRoutesFromElements,
     RouterProvider
- } from "react-router-dom"
+} from "react-router-dom"
+import { MainPage } from "../pages/MainPage";
+import App from "../App";
+import { LoginPage } from "../pages/login/LoginPage";
 
-const router = createBrowserRouter (
-    createRoutesFromElements(
-        <Route element={}>
-            <Route path="/" element={</>} />
-        
-        </Route>
-    )
-)
+const loginUrl = import.meta.env.VITE_LOGIN_URL;
 
-const AppRoute: React.FC = () => {
+const router = createBrowserRouter ([
+    {
+        path : "/",
+        Component : App,
+        children: [
+            { path: "", Component: MainPage},
+            { path: loginUrl!, Component: LoginPage}
+        ],
+    },
+])
 
+export const AppRoute = () => {
     return <RouterProvider router={router}/>;
-
 };
 
-
-export default AppRoute;
