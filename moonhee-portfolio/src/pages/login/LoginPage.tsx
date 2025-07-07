@@ -19,7 +19,7 @@ export const LoginPage = () => {
 
 
     return (
-    <div className="w-full flex bg-gray-500">
+    <div className="w-full h-[40rem] flex bg-gray-200">
         <div className="flex w-full items-center justify-center">
             <div className="flex flex-col my-2 py-3">
                 <p className="text-xl text-center justify-center mb-4">로그인</p>
