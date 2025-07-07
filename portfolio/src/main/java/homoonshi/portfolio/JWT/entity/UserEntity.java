@@ -1,4 +1,4 @@
-package homoonshi.portfolio.entity;
+package homoonshi.portfolio.JWT.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

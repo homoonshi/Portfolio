@@ -1,9 +1,9 @@
-package homoonshi.portfolio.entity;
+package homoonshi.portfolio.JWT.entity;
 
+import homoonshi.portfolio.JWT.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class CustomUserDetails implements UserDetails {
 
     private final UserEntity userEntity;
 
-    public CustomUserDetails(UserEntity userEntity){
+    public CustomUserDetails(homoonshi.portfolio.JWT.entity.UserEntity userEntity){
         this.userEntity = userEntity;
     }
 

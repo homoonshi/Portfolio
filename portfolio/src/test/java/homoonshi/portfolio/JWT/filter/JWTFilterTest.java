@@ -1,9 +1,9 @@
-package homoonshi.portfolio.filter;
+package homoonshi.portfolio.JWT.filter;
 
-import homoonshi.portfolio.entity.CustomUserDetails;
-import homoonshi.portfolio.entity.UserEntity;
-import homoonshi.portfolio.repository.UserRepository;
-import homoonshi.portfolio.util.JWTUtil;
+import homoonshi.portfolio.JWT.entity.CustomUserDetails;
+import homoonshi.portfolio.JWT.entity.UserEntity;
+import homoonshi.portfolio.JWT.repository.UserRepository;
+import homoonshi.portfolio.JWT.util.JWTUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletResponse;

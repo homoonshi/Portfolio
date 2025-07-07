@@ -1,8 +1,8 @@
-package homoonshi.portfolio.service;
+package homoonshi.portfolio.JWT.service;
 
-import homoonshi.portfolio.entity.CustomUserDetails;
-import homoonshi.portfolio.entity.UserEntity;
-import homoonshi.portfolio.repository.UserRepository;
+import homoonshi.portfolio.JWT.entity.CustomUserDetails;
+import homoonshi.portfolio.JWT.entity.UserEntity;
+import homoonshi.portfolio.JWT.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             return new CustomUserDetails(userData);
         }
 
-        return null;
+        throw new UsernameNotFoundException("User not found: "+username);
     }
 }
